@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SmartInventoryAPI.Contollers
 {
-    [Route("api/devices")] 
+    [Route("api/devices")]
     [ApiController]
     public class DeviceController : ControllerBase
     {
@@ -22,6 +22,39 @@ namespace SmartInventoryAPI.Contollers
             return Ok(devices);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDeviceById(int id)
+        {
+            var device = await _context.Devices.FindAsync(id);
+
+            if (device == null)
+            {
+                return NotFound("Aradığınız ID'ye sahip cihaz bulunamadı.");
+            }
+
+            return Ok(device);
+}
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDevice(int id, [FromBody] Device updatedDevice)
+        {
+            var existingDevice = await _context.Devices.FindAsync(id);
+
+            if (existingDevice == null)
+            {
+                return NotFound("Güncellenecek cihaz bulunamadı.");
+            }
+
+            existingDevice.DeviceName = updatedDevice.DeviceName;
+            existingDevice.SerialNumber = updatedDevice.SerialNumber;
+            existingDevice.Status = updatedDevice.Status;
+            existingDevice.LastMaintenanceDate = updatedDevice.LastMaintenanceDate;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddDevice([FromBody] Device device)
         {
@@ -31,6 +64,24 @@ namespace SmartInventoryAPI.Contollers
 
             return CreatedAtAction(nameof(GetDevices), new { id = device.Id }, device);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDevice(int id)
+        {
+            var device = await _context.Devices.FindAsync(id);
+
+            if (device == null)
+            {
+                return NotFound("Silinecek cihaz bulunamadı.");
+            }
+
+            _context.Devices.Remove(device);
+            
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
 
     }
 }   
