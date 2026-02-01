@@ -1,0 +1,82 @@
+############################
+# .NET / ASP.NET
+############################
+bin/
+obj/
+out/
+artifacts/
+
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+.vs/
+.vscode/
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+############################
+# Logs
+############################
+*.log
+logs/
+LogFiles/
+
+############################
+# OS files
+############################
+.DS_Store
+Thumbs.db
+
+############################
+# Environment / Secrets
+############################
+.env
+.env.*
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+# User secrets
+**/secrets.json
+
+############################
+# Docker
+############################
+docker-compose.override.yml
+docker-compose.local.yml
+docker-data/
+postgres-data/
+pgdata/
+volumes/
+
+############################
+# PostgreSQL local volumes
+############################
+*.sql.backup
+*.dump
+
+############################
+# Node (frontend varsa)
+############################
+node_modules/
+dist/
+build/
+
+############################
+# Test results
+############################
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+############################
+# Temporary files
+############################
+*.tmp
+*.temp
+*.cache
