@@ -2,14 +2,14 @@ version: "3.8"
 
 services:
   db:
-    image: postgres:latest
+    image: postgres:15
     container_name: inventory_db
     environment:
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: Password123!
+      POSTGRES_PASSWORD: 12345
       POSTGRES_DB: InventoryDb
     ports:
-      - "5432:5432"
+      - "5435:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
