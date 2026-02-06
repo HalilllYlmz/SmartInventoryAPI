@@ -6,10 +6,11 @@ namespace SmartInventoryAPI.Hubs
     {
         public static int LastTemperature = 0;
 
-        public async Task GetCurrentTemperature()
+        public override async Task OnConnectedAsync()
         {
-            // İsteyen kişiye (Caller) son değeri hemen gönder.
             await Clients.Caller.SendAsync("ReceiveTemperature", LastTemperature);
+            
+            await base.OnConnectedAsync();
         }
     
     }

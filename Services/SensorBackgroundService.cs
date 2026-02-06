@@ -18,20 +18,14 @@ namespace SmartInventoryAPI.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            // BURADAN SİLDİM
-
             while (!stoppingToken.IsCancellationRequested)
             {
-                // BURAYA EKLEDİM: Her döngüde yeni sayı üretilsin
                 var temperature = Random.Shared.Next(20, 101); 
 
-                // 1. Statik değişkeni güncelle (Yeni gelenler bunu görecek)
                 SensorHub.LastTemperature = temperature;
 
-                // 2. Canlı olanlara gönder
                 await _hubContext.Clients.All.SendAsync("ReceiveTemperature", temperature, stoppingToken);
 
-                // 3. Kritik seviye kontrolü
                 if (temperature > 80)
                 {
                     await LogAlarmToDatabase(temperature);
